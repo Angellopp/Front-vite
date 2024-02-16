@@ -34,7 +34,7 @@ const Login = (props) => {
 
     // Log in a user using user and password
     const logIn = () => {
-        const name_database = process.env.REACT_APP_NAME_DATABASE
+        const name_database = import.meta.env.VITE_NOMBRE_DB
         fetch("http://172.22.228.144:4000/login", {
             method: "POST",
             headers: {
@@ -44,7 +44,7 @@ const Login = (props) => {
         })
             .then(r => r.json())
             .then(r => {
-                // si el estatus de la peticion es 200 y el token es correcto seguir
+                // si el token es correcto seguir
                 if (r.token) {
                     localStorage.setItem("user", JSON.stringify({ token: r.token, userId: r.userId }))
                     props.setLoggedIn(true)
