@@ -20,7 +20,6 @@ function App() {
             setLoggedIn(false)
             return
         }
-        console.log(user.token)
 
         // Validamos el token
         fetch("http://172.22.228.144:4000/verifyToken", {
@@ -31,12 +30,10 @@ function App() {
         })
             .then(r => r.json())
             .then(r => {
-                if (r.validation = true) localStorage.removeItem("user");
+                if (r.validation == false) localStorage.removeItem("user");
                 setLoggedIn(r.validation);
             })
-
-        // setLoggedIn(true)
-        // setUser(user.user || "")
+            
     }, [])
 
     return (
