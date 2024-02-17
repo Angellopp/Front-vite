@@ -35,7 +35,8 @@ const Login = (props) => {
     // Log in a user using user and password
     const logIn = () => {
         const name_database = import.meta.env.VITE_NOMBRE_DB
-        fetch("http://172.22.228.144:4000/login", {
+        const url = import.meta.env.VITE_URL_ODOO + "/login"
+        fetch(url, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
