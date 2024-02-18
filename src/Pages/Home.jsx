@@ -1,16 +1,18 @@
 import { useNavigate } from "react-router-dom";
+import { verifyToken } from "../Api/VerifyToken";
+import { useState } from "react";
 
-const Home = ({ loggedIn, setLoggedIn }) => {
+function Home() {
 
     const navigate = useNavigate();
+    const [loggedIn, setLoggedIn] = useState(localStorage.getItem("user") ? verifyToken(localStorage.getItem("user").token) : false)
 
     const onButtonClick = () => {
         if (loggedIn) {
             localStorage.removeItem("user")
             setLoggedIn(false)
-        } else {
-            navigate("/login")
         }
+        navigate("/login")
     }
 
     const goDashboard = () => {

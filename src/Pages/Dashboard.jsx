@@ -11,7 +11,8 @@ const Dashboard = () => {
         const user = JSON.parse(localStorage.getItem("user"))
         const { userId, password, token } = user;
         const name_database = import.meta.env.VITE_NOMBRE_DB
-        fetch("http://172.22.228.144:4000/product_products", {
+        const url = import.meta.env.VITE_URL_ODOO 
+        fetch(url + "/product_products", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
