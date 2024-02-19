@@ -7,7 +7,6 @@ import NotFound from "../Pages/NotFound";
 import { ProtectedRoute } from "../Components/utils/ProtectedRoute";
 
 export const router = createBrowserRouter([
-
     {
         path: "/",
         element: <Home />,
