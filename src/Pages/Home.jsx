@@ -7,11 +7,10 @@ function Home() {
     const logout = useLogout();
     const navigate = useNavigate();
     const { data } = useVerifyToken();
-    const [loggedIn, setLoggedIn] = useState(data);
+    const [loggedIn, setLoggedIn] = useState(false);
     useEffect(() => {
         setLoggedIn(data)
-        // console.log(loggedIn)
-    }, [])
+    }, [data])
 
     const onButtonClick = () => {
         if (loggedIn) {
