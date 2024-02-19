@@ -15,7 +15,6 @@ export default function useLogin() {
         // si el token es correcto seguir
         if (r.token) {
             localStorage.setItem("user", JSON.stringify({ token: r.token, userId: r.userId, password: r.password }))
-            // setIsLoggedIn(true)
         } else {
             // window.alert("Usuario o contraseña incorrecto")
             onerror()
