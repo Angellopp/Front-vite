@@ -4,7 +4,7 @@ import Home from "../Pages/Home";
 import Login from "../Pages/Login";
 import Dashboard from "../Pages/Dashboard";
 import NotFound from "../Pages/NotFound";
-import { verifyToken } from "../Api/VerifyToken";
+// import  useVerifyToken  from "../api/useVerifyToken";
 import { ProtectedRoute } from "../Components/utils/ProtectedRoute";
 
 export const router = createBrowserRouter([
@@ -20,7 +20,7 @@ export const router = createBrowserRouter([
         errorElement: <NotFound />,
     },
     {
-        element: <ProtectedRoute isAllowed={localStorage.getItem("user") ? verifyToken(localStorage.getItem("user").token) : false} />,
+        element: <ProtectedRoute isAllowed={true} />,
         children: [
             {
                 path: "/dashboard",

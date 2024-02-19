@@ -1,14 +1,16 @@
-import { useNavigate } from "react-router-dom";
-import { verifyToken } from "../Api/VerifyToken";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import useVerifyToken from "../api/useVerifyToken";
 import useLogout from "../hooks/auth/useLogout";
 
 function Home() {
     const logout = useLogout();
     const navigate = useNavigate();
-    const [loggedIn, setLoggedIn] = useState(false)
-    useEffect( () => {
-        setLoggedIn(localStorage.getItem("user") ? verifyToken(localStorage.getItem("user").token) : false)
+    const { data } = useVerifyToken();
+    const [loggedIn, setLoggedIn] = useState(data);
+    useEffect(() => {
+        setLoggedIn(data)
+        // console.log(loggedIn)
     }, [])
 
     const onButtonClick = () => {

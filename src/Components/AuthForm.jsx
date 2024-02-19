@@ -1,11 +1,11 @@
 import { useState } from "react";
-// import useLogin from "../hooks/auth/useLogin";
 import { Navigate } from "react-router-dom";
-import { verifyToken } from "../Api/VerifyToken";
+import useVerifyToken  from "../api/useVerifyToken";
 import useLogin from "../hooks/auth/useLogin";
 
 export default function AuthForm() {
-    const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("user") ? verifyToken(localStorage.getItem("user").token) : false);
+    const {data} = useVerifyToken();
+    const [isLoggedIn, setIsLoggedIn] = useState(data);
     const { mutate: login, isLoading, isError } = useLogin();
 
     const [user, setUser] = useState("")
