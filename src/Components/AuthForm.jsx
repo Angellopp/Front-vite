@@ -1,14 +1,21 @@
 import { useState } from "react";
 // import useLogin from "../hooks/auth/useLogin";
 import { Navigate } from "react-router-dom";
+import { verifyToken } from "../Api/VerifyToken";
+import useLogin from "../hooks/auth/useLogin";
 
 export default function AuthForm() {
-    const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("user"));
+    const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("user") ? verifyToken(localStorage.getItem("user").token) : false);
+    const { mutate: login, isLoading, isError } = useLogin();
+
     const [user, setUser] = useState("")
     const [password, setPassword] = useState("")
     const [userError, setUserError] = useState("")
     const [passwordError, setPasswordError] = useState("")
-    const onButtonClick = () => {
+    const onButtonClick = async (event) => {
+        //Deshabilitar boton mientras se hace una peticion
+        event.preventDefault()
+
         // Set initial error values to empty
         setUserError("")
         setPasswordError("")
@@ -29,29 +36,14 @@ export default function AuthForm() {
             setPasswordError("Por favor ingrese una contraseña")
             return
         }
-        logIn()
-    }
-
-    const logIn = () => {
-        const name_database = import.meta.env.VITE_NOMBRE_DB
-        const url = import.meta.env.VITE_URL_ODOO + "/login"
-        fetch(url, {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ name_database, user, password })
-        })
-        .then(r => r.json())
-        .then(r => {
-            // si el token es correcto seguir
-            if (r.token) {
-                localStorage.setItem("user", JSON.stringify({ token: r.token, userId: r.userId, password: r.password }))
-                setIsLoggedIn(true)
-            } else {
-                window.alert("Usuario o contraseña incorrecto")
+        // logIn()
+        login(
+            { email: user, password: password },
+            {
+                onSuccess: () => { setIsLoggedIn(true); },
+                onError: () => { setIsLoggedIn(false); },
             }
-        })
+        );
     }
 
     if (isLoggedIn) {
@@ -74,7 +66,7 @@ export default function AuthForm() {
                         //  required
                         onChange={ev => setUser(ev.target.value)}
                     />
-                    <label className="errorLabel">{userError}</label>
+                    <label className="errorLabel" style={{ color: "red" }}>{userError}</label>
                 </div>
                 <div className="mb-5">
                     <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900">Ingrese su contraseña aqui</label>
@@ -86,18 +78,20 @@ export default function AuthForm() {
                         // required
                         onChange={ev => setPassword(ev.target.value)}
                     />
-                    <label className="errorLabel">{passwordError}</label>
+                    <label className="errorLabel" style={{ color: "red" }}>{passwordError}</label>
                 </div>
                 <div className="text text-center">
                     <button
                         type="submit"
                         className="mx-auto relative inline-flex items-center justify-center p-0.5 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800"
-                        onClick={onButtonClick}
+                        onClick={onButtonClick} disabled={isLoading}
                     >
                         <span className="mx-auto relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
                             {"Log in"}
                         </span>
                     </button>
+                {isLoading && <p>Cargando...</p>}
+                {isError && <p style={{ color: "red" }}>Invalid Email or Password</p>}
                 </div>
             </div>
         </div>

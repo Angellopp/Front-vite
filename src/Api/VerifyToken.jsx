@@ -1,5 +1,5 @@
 export const verifyToken = async (token) => {
-    // console.log("entro a verifyToken")
+    console.log("entro a verifyToken")
     if (!token) {
         return
     }
@@ -8,7 +8,7 @@ export const verifyToken = async (token) => {
         const r = await fetch(url + "/verifyToken", {
             method: "POST",
             headers: {
-                'authorization': 'Bearer ' + token
+                'authorization': 'Bearer ' + "token"
             }
         })
         const r_1 = await r.json();
