@@ -8,7 +8,7 @@
 import { useEffect } from 'react';
 // import { Navigate } from 'react-router-dom';
 function App() {
-    
+
     // const navigate = useNavigate();
     // const [loggedIn, setLoggedIn] = useState(false)
 
@@ -29,12 +29,12 @@ function App() {
                 'authorization': 'Bearer ' + user.token
             }
         })
-        .then(r => r.json())
-        .then(r => {
-            if (r.validation == false) localStorage.removeItem("user");
-            // setLoggedIn(r.validation);
-        })
-            
+            .then(r => r.json())
+            .then(r => {
+                if (r.validation == false) localStorage.removeItem("user");
+                // setLoggedIn(r.validation);
+            })
+
     }, [])
 
     // return (

@@ -11,18 +11,18 @@ const Text = ({ value, setValue }) => {
 
     return (
         <div className="text text-center">
-            <textarea
+            <textarea 
                 value={value}
                 onChange={handleChange}
                 rows={1} // Número de filas del campo de texto
                 cols={100} // Número de columnas del campo de texto
             />
-            <button
+            {/* <button
                 type="submit"
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block"
             >
                 Enviar
-            </button>
+            </button> */}
         </div>
     )
 }

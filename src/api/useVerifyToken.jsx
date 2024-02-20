@@ -25,5 +25,5 @@ export default function useVerifyToken() {
             return false
         }
     }
-    return useQuery({queryKey: ["verifyToken"], queryFn: verifyToken})
+    return useQuery({ queryKey: ["verifyToken"], queryFn: verifyToken })
 }
