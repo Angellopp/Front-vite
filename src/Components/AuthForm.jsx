@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Navigate } from "react-router-dom";
-import useVerifyToken  from "../api/useVerifyToken";
+import useVerifyToken from "../api/useVerifyToken";
 import useLogin from "../hooks/auth/useLogin";
 
 export default function AuthForm() {
-    const {data} = useVerifyToken();
+    const { data } = useVerifyToken();
     const [isLoggedIn, setIsLoggedIn] = useState(data);
     const { mutate: login, isLoading, isError } = useLogin();
 
@@ -52,7 +52,7 @@ export default function AuthForm() {
 
     return (
         <div className="container mx-auto mt-20 mb-20">
-            
+
             <h1 className="font-black text-5xl text-center mb-10">Login</h1>
 
             <div className="max-w-sm mx-auto">
@@ -90,8 +90,8 @@ export default function AuthForm() {
                             {"Log in"}
                         </span>
                     </button>
-                {isLoading && <p>Cargando...</p>}
-                {isError && <p style={{ color: "red" }}>Invalid Email or Password</p>}
+                    {isLoading && <p>Cargando...</p>}
+                    {isError && <p style={{ color: "red" }}>Invalid Email or Password</p>}
                 </div>
             </div>
         </div>

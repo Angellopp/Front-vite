@@ -11,9 +11,9 @@ const Browser = ({ products }) => {
 
     return (
         <div className="mx-auto">
-            <Text 
+            <Text
                 value={value}
-                setValue={setValue}    
+                setValue={setValue}
             />
             <TOP
                 value={value}

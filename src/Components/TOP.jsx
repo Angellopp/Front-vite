@@ -41,7 +41,7 @@ const TOP = ({ products, value }) => {
                                 {"S/. " + item.list_price}
                             </td>
                             <td className="px-6 py-4">
-                                {(item.image_256) ? <img src={"data:image/png;base64,"+ item.image_256} alt={item.name} /> : "FALTA IMAGEN"}
+                                {(item.image_256) ? <img src={"data:image/png;base64," + item.image_256} alt={item.name} /> : "FALTA IMAGEN"}
                                 {/* src="data:image/png;base64,#{o.sunat_qr_code}" */}
                             </td>
                         </tr>
