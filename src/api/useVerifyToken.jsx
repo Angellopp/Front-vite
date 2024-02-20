@@ -1,4 +1,5 @@
 import { useQuery } from "react-query";
+import useLogout from "../hooks/auth/useLogout";
 export default function useVerifyToken() {
     async function verifyToken() {
         // console.log("entro a verifyToken")
@@ -16,10 +17,11 @@ export default function useVerifyToken() {
                 }
             })
             const r_1 = await r.json();
-            // console.log(r_1.validation)
+            if (!r_1.validation)  useLogout
             return r_1.validation
         } catch (error) {
             console.log(error + ": error en verifyToken")
+            useLogout
             return false
         }
     }

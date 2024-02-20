@@ -6,6 +6,7 @@ import Dashboard from "../Pages/Dashboard";
 import NotFound from "../Pages/NotFound";
 import { ProtectedRoute } from "../Components/utils/ProtectedRoute";
 
+
 export const router = createBrowserRouter([
     {
         path: "/",
@@ -18,7 +19,7 @@ export const router = createBrowserRouter([
         errorElement: <NotFound />,
     },
     {
-        element: <ProtectedRoute/>,
+        element: <ProtectedRoute />,
         children: [
             {
                 path: "/dashboard",

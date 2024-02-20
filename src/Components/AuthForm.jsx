@@ -3,7 +3,9 @@ import { Navigate } from "react-router-dom";
 import useVerifyToken  from "../api/useVerifyToken";
 import useLogin from "../hooks/auth/useLogin";
 
-export default function AuthForm() {
+// eslint-disable-next-line react/prop-types
+export default function AuthForm({ fromUrl="/" }) {
+
     const {data} = useVerifyToken();
     const [isLoggedIn, setIsLoggedIn] = useState(data);
     const { mutate: login, isLoading, isError } = useLogin();
@@ -47,7 +49,7 @@ export default function AuthForm() {
     }
 
     if (isLoggedIn) {
-        return <Navigate to="/" />;
+        return <Navigate to={fromUrl} />;
     }
 
     return (
