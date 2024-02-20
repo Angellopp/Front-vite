@@ -1,7 +1,7 @@
 import React from "react"
 const TOP = ({ products, value }) => {
 
-    const datos = products.result
+    const datos = products
     const filasFiltradas = datos
         ? value ? datos.filter((item) =>
             item.name.toLowerCase().includes(value.toLowerCase())
@@ -10,6 +10,7 @@ const TOP = ({ products, value }) => {
 
     return (
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+            {console.log(filasFiltradas)}
             <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
@@ -38,7 +39,7 @@ const TOP = ({ products, value }) => {
                                 {item.name}
                             </td>
                             <td className="px-6 py-4">
-                                {"S/. " + item.list_price}
+                                {"S/. " + item.lst_price}
                             </td>
                             <td className="px-6 py-4">
                                 {(item.image_256) ? <img src={"data:image/png;base64," + item.image_256} alt={item.name} /> : "FALTA IMAGEN"}
