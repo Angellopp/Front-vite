@@ -17,7 +17,7 @@ export default function useVerifyToken() {
                 }
             })
             const r_1 = await r.json();
-            if (!r_1.validation)  useLogout
+            if (!r_1.validation) useLogout
             return r_1.validation
         } catch (error) {
             console.log(error + ": error en verifyToken")
