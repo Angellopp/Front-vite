@@ -1,24 +1,26 @@
 import { useState, useEffect } from 'react'
 import Browser from '../Components/Browser'
 import useProducts from '../hooks/products/useProducts';
+
 const Dashboard = () => {
 
-    const {data , isLoading, isSuccess, isStale}= useProducts()
+    const {data, isFetching, refetch}= useProducts()
     const [products, setProducts] = useState([]);
     
     useEffect(() => {
         setProducts(data)
-    }, [isStale])
+    }, [data])
 
     return (
         <div>
-            {isLoading ? <div className="text text-center text-3xl"> Cargando Productos... </div> : <div/>} 
             {
-                isSuccess ? <Browser
+                <Browser
                 products={products}
-            />: <div/>
+                isFetching={isFetching}
+                refetch={refetch}
+            />
             }
-            {console.log("dashboard")}
+            {/* {isFetching ? <div className="text text-center text-3xl"> Cargando... </div> : <div/>} */}
         </div>
     )
 }

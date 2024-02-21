@@ -20,7 +20,7 @@ const fetchProducts = async () => {
         return r_1.result
     } catch (error){
         console.log(error)
-    };
+    }
 }
 
 export default fetchProducts
