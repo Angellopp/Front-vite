@@ -20,7 +20,6 @@ const Dashboard = () => {
                 refetch={refetch}
             />
             }
-            {/* {isFetching ? <div className="text text-center text-3xl"> Cargando... </div> : <div/>} */}
         </div>
     )
 }
