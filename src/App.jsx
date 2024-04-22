@@ -36,31 +36,6 @@ function App() {
             })
 
     }, [])
-
-    // return (
-    //     <div className="App">
-    //         <BrowserRouter>
-    //             <Routes>
-    //                 <Route path="/" element={
-    //                     <Home
-    //                         loggedIn={loggedIn}
-    //                         setLoggedIn={setLoggedIn}
-    //                     />
-    //                 } />
-    //                 <Route path="/login" element={
-    //                     <Login
-    //                         setLoggedIn={setLoggedIn}
-    //                     />
-    //                 } />
-    //                 <Route path="/dashboard" element={
-    //                     <ProtectedRoute path = "/login" >
-    //                         <Dashboard />
-    //                     </ProtectedRoute>
-    //                 } />
-    //             </Routes>
-    //         </BrowserRouter>
-    //     </div>
-    // )
 }
 
 export default App

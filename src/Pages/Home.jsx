@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import useVerifyToken from "../api/useVerifyToken";
+import useVerifyToken from "../Api/useVerifyToken";
 import useLogout from "../hooks/auth/useLogout";
 
 function Home() {

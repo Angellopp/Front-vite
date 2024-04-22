@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import fetchProducts from "../../api/fetchProducts";
+import fetchProducts from "../../Api/fetchProducts";
 
 export default function useProducts() {
     

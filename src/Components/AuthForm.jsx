@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Navigate } from "react-router-dom";
-import useVerifyToken from "../api/useVerifyToken";
+import useVerifyToken from "../Api/useVerifyToken";
 import useLogin from "../hooks/auth/useLogin";
 
 // eslint-disable-next-line react/prop-types
