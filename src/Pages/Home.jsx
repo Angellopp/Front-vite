@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import useVerifyToken from "../Api/useVerifyToken";
 import useLogout from "../hooks/auth/useLogout";
+import Navbar from "../Components/navbar/Navbar";
 
 function Home() {
     const logout = useLogout();
@@ -26,6 +27,7 @@ function Home() {
 
     return (
         <div className="container mx-auto mt-20 mb-20">
+            <Navbar/>
             <h1 className="font-black text-5xl text-center mb-10">Bienvenido!</h1>
             <h2 className="font-black text-4xl text-center mb-10">Esta es la home page.</h2>
 
