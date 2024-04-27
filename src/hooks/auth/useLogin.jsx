@@ -3,23 +3,38 @@ export default function useLogin() {
     async function login({ email, password }) {
         const name_database = import.meta.env.VITE_NOMBRE_DB
         const url = import.meta.env.VITE_URL_ODOO + "/login"
-        await fetch(url, {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ name_database, user: email, password })
-        })
-            .then(r => r.json())
-            .then(r => {
-                // si el token es correcto seguir
-                if (r.token) {
-                    localStorage.setItem("user", JSON.stringify({ token: r.token, userId: r.userId, password: r.password }))
-                } else {
-                    // window.alert("Usuario o contraseña incorrecto")
-                    onerror()
-                }
+        try {
+            const response = await fetch(url, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ name_database, user: email, password }), 
+                timeout: 5000
             })
+            if (!response.ok) {
+                if (response.status === 500){
+                    throw new Error('Sin comunicación con Odoo.')
+                }
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+
+            if (data.token) {
+                localStorage.setItem("user", JSON.stringify({ token: data.token, userId: data.userId, password: data.password }));
+            } else {
+                throw new Error('Invalid token received');
+            }
+
+        } catch (error) {
+            // Handle errors here, you might want to log them or do something else
+            console.error('Login failed: ', error);
+            // console.log(typeof error.name, error.name, error.name === 'TypeError', error instanceof Error)
+            if(error.name === 'TypeError'){
+                throw { "message": "Network Server Error" };
+            }
+            throw { "message": error.message };// Rethrow the error for React Query to handle
+        }
     }
-    return useMutation({ mutationFn: login })
+    return useMutation({ mutationFn: login }) 
 }

@@ -2,9 +2,9 @@ import { createBrowserRouter } from "react-router-dom";
 
 import Home from "../Pages/Home";
 import Login from "../Pages/Login";
-import Dashboard from "../Pages/Dashboard";
 import NotFound from "../Pages/NotFound";
 import { ProtectedRoute } from "../Components/utils/ProtectedRoute";
+import ProductsDashboard from "../Pages/ProductsDashboard";
 
 
 export const router = createBrowserRouter([
@@ -21,9 +21,13 @@ export const router = createBrowserRouter([
     {
         element: <ProtectedRoute />,
         children: [
+            // {
+            //     path: "/dashboard",
+            //     element: <Home />,
+            // },
             {
-                path: "/dashboard",
-                element: <Dashboard />,
+                path: "/products",
+                element: <ProductsDashboard />,
             },
         ],
     },

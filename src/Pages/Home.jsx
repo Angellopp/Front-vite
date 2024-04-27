@@ -2,9 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import useVerifyToken from "../Api/useVerifyToken";
 import useLogout from "../hooks/auth/useLogout";
-// import Navbar from "../Components/navbar/Navbar";
-// import Sidebar from "../Components/navbar/Sidebar";
-import MyDrawer from "../Components/navbar/MyDrawer";
+import MySidebar from "../Components/navbar/MySidebar";
 
 function Home() {
     const logout = useLogout();
@@ -29,9 +27,7 @@ function Home() {
 
     return (
         <div>
-            {/* <Sidebar/> */}
-            <MyDrawer/>
-            {/* <Navbar/> */}
+            {loggedIn ? <MySidebar /> : <></>}
             <div className="container mx-auto mt-20 mb-20">
                 <h1 className="font-black text-5xl text-center mb-10">Bienvenido!</h1>
                 <h2 className="font-black text-4xl text-center mb-10">Esta es la home page.</h2>
@@ -78,6 +74,7 @@ function Home() {
                     </div>
                 </div>
             </div>
+            
         </div>
     )
 }
