@@ -2,6 +2,7 @@
 import { Navigate, Outlet , useLocation} from "react-router-dom";
 import useVerifyToken from "../../Api/useVerifyToken";
 import Loading from "../indicators/Loading";
+import MySidebar from "../navbar/MySidebar";
 // import AuthForm from "../AuthForm";
 // import Login from "../../Pages/Login";
 
@@ -12,7 +13,7 @@ export const ProtectedRoute = ({ children }) => {
         return <Loading/>;
     }
     if (isAllowed) {
-      return children ? <Navigate to={children.path}/> : <Outlet />;
+      return children ? <Navigate to={children.path}/> : <MySidebar><Outlet /></MySidebar>;
     }
     return <Navigate to="/login" replace state={{ from: location.pathname }} />;
 };

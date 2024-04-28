@@ -1,11 +1,19 @@
 "use client";
 
+// import { useState } from "react";
 import { FaAngleDoubleRight } from "react-icons/fa";
-import { Avatar, Dropdown, Navbar, Button } from "flowbite-react";
+// import { HiChevronDown } from "react-icons/hi";
+import {
+  DarkThemeToggle,
+  Avatar,
+  Dropdown,
+  Navbar,
+  Button,
+} from "flowbite-react";
 import PropTypes from "prop-types"; // Importa PropTypes
 import useLogout from "../../hooks/auth/useLogout";
 
-export default function MyNavbar({ setIsOpen }) {
+export default function MyNavbar({ setIsOpen, listNavBar }) {
   const uselogout = useLogout();
   const logout = () => {
     uselogout();
@@ -13,7 +21,7 @@ export default function MyNavbar({ setIsOpen }) {
     window.location.reload();
   };
   return (
-    <Navbar fluid rounded>
+    <Navbar fluid rounded className="fixed w-full z-20 top-0 start-0 border-b"> 
       <Navbar.Brand
         onClick={() => setIsOpen(true)}
         onMouseMove={() => setIsOpen(true)}
@@ -31,6 +39,7 @@ export default function MyNavbar({ setIsOpen }) {
         </Button>
       </Navbar.Brand>
       <div className="flex md:order-2">
+        <DarkThemeToggle />
         <Dropdown
           arrowIcon={false}
           inline
@@ -48,22 +57,24 @@ export default function MyNavbar({ setIsOpen }) {
               name@flowbite.com
             </span>
           </Dropdown.Header>
-          <Dropdown.Item>Dashboard</Dropdown.Item>
+          {/* <Dropdown.Item>Dashboard</Dropdown.Item>
           <Dropdown.Item>Settings</Dropdown.Item>
-          <Dropdown.Item>Earnings</Dropdown.Item>
-          <Dropdown.Divider />
-          <Dropdown.Item onClick={() => logout()}>Sign out</Dropdown.Item>
+          <Dropdown.Item>Earnings</Dropdown.Item> */}
+          {/* <Dropdown.Divider /> */}
+          <Dropdown.Item onClick={() => logout()}>Cerrar sesión</Dropdown.Item>
         </Dropdown>
         <Navbar.Toggle />
       </div>
       <Navbar.Collapse>
-        <Navbar.Link href="#" active>
-          Home
-        </Navbar.Link>
-        <Navbar.Link href="#">About</Navbar.Link>
-        <Navbar.Link href="#">Services</Navbar.Link>
-        <Navbar.Link href="#">Pricing</Navbar.Link>
-        <Navbar.Link href="#">Contact</Navbar.Link>
+        {listNavBar.map((item, index) => (
+          <Navbar.Link
+            key={index}
+            href={item.url}
+            active={item.url === window.location.pathname}
+          >
+            {item.name}
+          </Navbar.Link>
+        ))}
       </Navbar.Collapse>
     </Navbar>
   );
@@ -72,4 +83,5 @@ export default function MyNavbar({ setIsOpen }) {
 // Añade la validación de tipo para setIsOpen utilizando PropTypes
 MyNavbar.propTypes = {
   setIsOpen: PropTypes.func.isRequired, // Requiere que la función sea una función
+  listNavBar: PropTypes.array.isRequired,
 };

@@ -5,6 +5,7 @@ import Login from "../Pages/Login";
 import NotFound from "../Pages/NotFound";
 import { ProtectedRoute } from "../Components/utils/ProtectedRoute";
 import ProductsDashboard from "../Pages/ProductsDashboard";
+import CustomersDashboard from "../Pages/CustomersDashboard";
 
 
 export const router = createBrowserRouter([
@@ -21,10 +22,16 @@ export const router = createBrowserRouter([
     {
         element: <ProtectedRoute />,
         children: [
-            // {
-            //     path: "/dashboard",
-            //     element: <Home />,
-            // },
+            {
+                path: "/customers",
+                element: <CustomersDashboard />,
+                children: [
+                    {
+                        path: "/customers/:id",
+                        element: <CustomersDashboard />,
+                    },
+                ]
+            },
             {
                 path: "/products",
                 element: <ProductsDashboard />,

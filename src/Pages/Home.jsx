@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import useVerifyToken from "../Api/useVerifyToken";
@@ -26,9 +28,9 @@ function Home() {
     }
 
     return (
-        <div>
+        <div className="mx-auto">
             {loggedIn ? <MySidebar /> : <></>}
-            <div className="container mx-auto mt-20 mb-20">
+            <div className="mx-auto mt-20 mb-20 ">
                 <h1 className="font-black text-5xl text-center mb-10">Bienvenido!</h1>
                 <h2 className="font-black text-4xl text-center mb-10">Esta es la home page.</h2>
 

@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import { Flowbite } from "flowbite-react";
 import { QueryClientProvider, QueryClient } from 'react-query'
 import './index.css'
 
@@ -13,7 +14,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   // <React.StrictMode>
   <QueryClientProvider client={queryClient}>
     {/* // <userContext.Provider value={}> */}
-    <RouterProvider router={router} />
+    <Flowbite>
+      <RouterProvider router={router} />
+    </Flowbite>
     {/* // </userContext.Provider>     */}
   </QueryClientProvider>
   // </React.StrictMode>

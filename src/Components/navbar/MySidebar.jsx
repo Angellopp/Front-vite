@@ -1,20 +1,11 @@
 "use client";
 
 import { Drawer, Sidebar, TextInput } from "flowbite-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Outlet } from "react-router-dom";
 import { useState } from "react";
-import {
-  HiChartPie,
-  HiClipboard,
-  HiCollection,
-  HiInformationCircle,
-  HiLogin,
-  HiPencil,
-  HiSearch,
-  HiShoppingBag,
-  HiUsers,
-} from "react-icons/hi";
+import { HiChartPie, HiSearch, HiShoppingBag, HiUsers } from "react-icons/hi";
 import MyNavbar from "./MyNavbar";
+import { useLocation } from "react-router-dom";
 
 export default function MySidebar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,13 +14,14 @@ export default function MySidebar() {
   const navigate = useNavigate();
 
   const goNavigate = (url) => {
-    setIsOpen(false)
-    navigate(url)
-}
+    setIsOpen(false);
+    navigate(url);
+  };
+  let location = useLocation();
 
   return (
     <>
-      <MyNavbar setIsOpen={setIsOpen} />
+      <MyNavbar setIsOpen={setIsOpen} listNavBar={[{ name: "Home", url: "/" }, { name: "Seguimiento personalizado", url: "/customers" }, { name: "Productos", url: "/products" }]} />
       <Drawer open={isOpen} onClose={handleClose}>
         <Drawer.Header title="MENU" titleIcon={() => <> </>} />
         <Drawer.Items>
@@ -50,23 +42,34 @@ export default function MySidebar() {
                 </form>
                 <Sidebar.Items>
                   <Sidebar.ItemGroup>
-                    <Sidebar.Item onClick={() => {
+                    <Sidebar.Item
+                      onClick={() => {
                         goNavigate("/");
-                      }}icon={HiChartPie}>
-                      Dashboard
+                      }}
+                      icon={HiChartPie}
+                      active={location.pathname === "/"}
+                    >
+                      Home
+                    </Sidebar.Item>
+                    <Sidebar.Item
+                      onClick={() => {
+                        goNavigate("/customers");
+                      }}
+                      icon={HiUsers}
+                      active={location.pathname === "/customers"}
+                    >
+                      Seguimiento personalizado
                     </Sidebar.Item>
                     <Sidebar.Item
                       onClick={() => {
                         goNavigate("/products");
                       }}
                       icon={HiShoppingBag}
+                      active={location.pathname === "/products"}
                     >
-                      Products
+                      Productos
                     </Sidebar.Item>
-                    <Sidebar.Item href="/users/list" icon={HiUsers}>
-                      Users list
-                    </Sidebar.Item>
-                    <Sidebar.Item href="/authentication/sign-in" icon={HiLogin}>
+                    {/* <Sidebar.Item href="/authentication/sign-in" icon={HiLogin}>
                       Sign in
                     </Sidebar.Item>
                     <Sidebar.Item
@@ -74,9 +77,9 @@ export default function MySidebar() {
                       icon={HiPencil}
                     >
                       Sign up
-                    </Sidebar.Item>
+                    </Sidebar.Item> */}
                   </Sidebar.ItemGroup>
-                  <Sidebar.ItemGroup>
+                  {/* <Sidebar.ItemGroup>
                     <Sidebar.Item
                       href="https://github.com/themesberg/flowbite-react/"
                       icon={HiClipboard}
@@ -95,13 +98,15 @@ export default function MySidebar() {
                     >
                       Help
                     </Sidebar.Item>
-                  </Sidebar.ItemGroup>
+                  </Sidebar.ItemGroup> */}
                 </Sidebar.Items>
               </div>
             </div>
           </Sidebar>
         </Drawer.Items>
       </Drawer>
+
+      <Outlet />
     </>
   );
 }
