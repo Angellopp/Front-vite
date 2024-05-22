@@ -2,13 +2,14 @@ import { useMutation } from "react-query";
 export default function useLogin() {
     async function login({ email, password }) {
         const name_database = import.meta.env.VITE_NOMBRE_DB
-        const url = import.meta.env.VITE_URL_ODOO + "/login"
+        const url = import.meta.env.VITE_URL_BACKEND + "/login"
         try {
             const response = await fetch(url, {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'
                 },
+                credentials: 'include',
                 body: JSON.stringify({ name_database, user: email, password }), 
                 timeout: 5000
             })
@@ -20,8 +21,15 @@ export default function useLogin() {
             }
             const data = await response.json();
 
-            if (data.token) {
-                localStorage.setItem("user", JSON.stringify({ token: data.token, userId: data.userId, password: data.password }));
+            if (data) {
+                localStorage.setItem("user", JSON.stringify({ 
+                    email: data.email,
+                    name: data.name,
+                    companies: data.companies,
+                    current_company: data.current_company,
+                    id: data.id,
+                    url_odoo: data.url_odoo,
+                }));
             } else {
                 throw new Error('Invalid token received');
             }

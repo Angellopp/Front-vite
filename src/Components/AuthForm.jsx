@@ -75,7 +75,7 @@ export default function AuthForm({ fromUrl = "/" }) {
 
   return (
     <div className="container mx-auto mt-20 mb-20">
-      <h1 className="font-black text-5xl text-center mb-10">Login</h1>
+      <h1 className="text-center mb-10 text-6xl font-medium text-gray-900 dark:text-white">Login</h1>
       <div className="max-w-sm mx-auto">
         {!isLoading && networkError && (
           <div className="mb-2 mx-auto">
@@ -86,7 +86,7 @@ export default function AuthForm({ fromUrl = "/" }) {
         )}
         <div className="mb-5">
           <div className="mb-2 block">
-            <Label htmlFor="email" color="" value="Ingrese su usuario aquí" />
+            <Label htmlFor="email" value="Ingrese su usuario aquí" />
           </div>
           <TextInput
             id="email"
@@ -122,7 +122,6 @@ export default function AuthForm({ fromUrl = "/" }) {
           <div className="mb-2 block">
             <Label
               htmlFor="password"
-              color=""
               value="Ingrese su contraseña aquí"
             />
           </div>
@@ -167,7 +166,7 @@ export default function AuthForm({ fromUrl = "/" }) {
               Log in
             </Button>
           </div>
-          {isLoading && <p>Cargando...</p>}
+          {isLoading && <p className="text-2xl text-gray-900 dark:text-white">Cargando...</p>}
         </div>
       </div>
     </div>

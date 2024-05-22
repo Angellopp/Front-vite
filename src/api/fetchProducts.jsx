@@ -2,7 +2,7 @@ const fetchProducts = async () => {
     const user = JSON.parse(localStorage.getItem("user"))
     const { userId, password, token } = user;
     const name_database = import.meta.env.VITE_NOMBRE_DB
-    const url = import.meta.env.VITE_URL_ODOO
+    const url = import.meta.env.VITE_URL_BACKEND
     try {
         const r = await fetch(url + "/product_products", {
             method: "POST",

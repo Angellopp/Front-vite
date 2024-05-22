@@ -31,8 +31,8 @@ function Home() {
         <div className="mx-auto">
             {loggedIn ? <MySidebar /> : <></>}
             <div className="mx-auto mt-20 mb-20 ">
-                <h1 className="font-black text-5xl text-center mb-10">Bienvenido!</h1>
-                <h2 className="font-black text-4xl text-center mb-10">Esta es la home page.</h2>
+                <h1 className="dark:text-white text-5xl text-center mb-10">Bienvenido!</h1>
+                <h2 className="dark:text-white text-4xl text-center mb-10">Esta es la home page.</h2>
 
                 {isLoading ? 
                     <div className="text text-center text-3xl"> Cargando... </div>

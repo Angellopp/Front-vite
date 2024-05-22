@@ -14,6 +14,7 @@ import PropTypes from "prop-types"; // Importa PropTypes
 import useLogout from "../../hooks/auth/useLogout";
 
 export default function MyNavbar({ setIsOpen, listNavBar }) {
+  const url = JSON.parse(localStorage.getItem("user"))?.url_odoo || "";
   const uselogout = useLogout();
   const logout = () => {
     uselogout();
@@ -46,15 +47,15 @@ export default function MyNavbar({ setIsOpen, listNavBar }) {
           label={
             <Avatar
               alt="User settings"
-              img="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+              img={url + "/web/image?model=res.users&field=avatar_128&id=" + JSON.parse(localStorage.getItem("user"))?.id}
               rounded
             />
           }
         >
           <Dropdown.Header>
-            <span className="block text-sm">Bonnie Green</span>
+            <span className="block text-sm">{JSON.parse(localStorage.getItem("user"))?.name || "User Name"}</span>
             <span className="block truncate text-sm font-medium">
-              name@flowbite.com
+              {JSON.parse(localStorage.getItem("user"))?.email || "User Email"}
             </span>
           </Dropdown.Header>
           {/* <Dropdown.Item>Dashboard</Dropdown.Item>
