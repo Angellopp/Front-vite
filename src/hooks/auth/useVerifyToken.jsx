@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import useLogout from "../hooks/auth/useLogout";
+import useLogout from "./useLogout";
 export default function useVerifyToken() {
     async function verifyToken() {
         const url = import.meta.env.VITE_URL_BACKEND

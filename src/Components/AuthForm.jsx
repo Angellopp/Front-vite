@@ -5,7 +5,7 @@ import { GoAlertFill } from "react-icons/go";
 
 import { useState } from "react";
 import { Navigate } from "react-router-dom";
-import useVerifyToken from "../Api/useVerifyToken";
+import useVerifyToken from "../hooks/auth/useVerifyToken";
 import useLogin from "../hooks/auth/useLogin";
 
 // eslint-disable-next-line react/prop-types

@@ -12,15 +12,16 @@ import {
 } from "flowbite-react";
 import PropTypes from "prop-types"; // Importa PropTypes
 import useLogout from "../../hooks/auth/useLogout";
+// import getImageUrl from "../../Api/getImageUrl";
 
 export default function MyNavbar({ setIsOpen, listNavBar }) {
-  const url = JSON.parse(localStorage.getItem("user"))?.url_odoo || "";
   const uselogout = useLogout();
   const logout = () => {
     uselogout();
     //Recargar la página
     window.location.reload();
   };
+  
   return (
     <Navbar fluid rounded className="fixed w-full z-20 top-0 start-0 border-b"> 
       <Navbar.Brand
@@ -47,7 +48,7 @@ export default function MyNavbar({ setIsOpen, listNavBar }) {
           label={
             <Avatar
               alt="User settings"
-              img={url + "/web/image?model=res.users&field=avatar_128&id=" + JSON.parse(localStorage.getItem("user"))?.id}
+              img=""
               rounded
             />
           }

@@ -29,6 +29,7 @@ export default function useLogin() {
                     current_company: data.current_company,
                     id: data.id,
                     url_odoo: data.url_odoo,
+                    session_id: data.session_id
                 }));
             } else {
                 throw new Error('Invalid token received');

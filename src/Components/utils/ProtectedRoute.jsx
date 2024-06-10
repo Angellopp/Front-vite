@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { Navigate, Outlet , useLocation} from "react-router-dom";
-import useVerifyToken from "../../Api/useVerifyToken";
+import useVerifyToken from "../../hooks/auth/useVerifyToken";
 import Loading from "../indicators/Loading";
 import MySidebar from "../navbar/MySidebar";
 // import AuthForm from "../AuthForm";

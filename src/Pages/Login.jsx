@@ -1,6 +1,6 @@
 import { Navigate , useLocation} from "react-router-dom";
 import AuthForm from "../Components/AuthForm";
-import  useVerifyToken from "../Api/useVerifyToken";
+import  useVerifyToken from "../hooks/auth/useVerifyToken";
 import Loading from "../Components/indicators/Loading";
 
 export default function IsLoggin( ) {

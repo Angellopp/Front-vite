@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import useVerifyToken from "../Api/useVerifyToken";
+import useVerifyToken from "../hooks/auth/useVerifyToken";
 import useLogout from "../hooks/auth/useLogout";
 import MySidebar from "../Components/navbar/MySidebar";
 
