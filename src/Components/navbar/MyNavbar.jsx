@@ -1,6 +1,6 @@
 "use client";
 
-// import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaAngleDoubleRight } from "react-icons/fa";
 // import { HiChevronDown } from "react-icons/hi";
 import {
@@ -12,7 +12,7 @@ import {
 } from "flowbite-react";
 import PropTypes from "prop-types"; // Importa PropTypes
 import useLogout from "../../hooks/auth/useLogout";
-// import getImageUrl from "../../Api/getImageUrl";
+import getImageUrl from "../../api/getImageUrl";
 
 export default function MyNavbar({ setIsOpen, listNavBar }) {
   const uselogout = useLogout();
@@ -21,6 +21,14 @@ export default function MyNavbar({ setIsOpen, listNavBar }) {
     //Recargar la página
     window.location.reload();
   };
+  
+  const [imgUser, setImgUser] = useState("");
+  useEffect( () => {
+    // setImgUser(getImageUrl(1));
+    getImageUrl(2).then((url) => {
+      console.log(url);
+    });
+  }, []);
   
   return (
     <Navbar fluid rounded className="fixed w-full z-20 top-0 start-0 border-b"> 
@@ -48,7 +56,7 @@ export default function MyNavbar({ setIsOpen, listNavBar }) {
           label={
             <Avatar
               alt="User settings"
-              img=""
+              img={imgUser}
               rounded
             />
           }

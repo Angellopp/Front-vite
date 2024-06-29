@@ -1,6 +1,10 @@
-const getImageUrl = async (url, session_id, object_id) => {
+const getImageUrl = async () => {
     const myHeaders = new Headers();
-    myHeaders.append("Cookie", "frontend_lang=es_PE; session_id=" + session_id);
+    const url = import.meta.env.VITE_URL_BACKEND || ""
+    
+    if (!url) {
+        return ""
+    }
 
     const requestOptions = {
         method: "GET",
@@ -8,7 +12,7 @@ const getImageUrl = async (url, session_id, object_id) => {
         redirect: "follow"
     };
 
-    fetch(url + "/web/image?model=res.users&field=avatar_128&id=" + object_id, requestOptions)
+    fetch(url + "/web/image/res.users/avatar_128", requestOptions)
     .then((response) => response.text())
     .then((result) => console.log(result))
     .catch((error) => console.error(error));
