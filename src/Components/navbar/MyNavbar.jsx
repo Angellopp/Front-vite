@@ -21,17 +21,23 @@ export default function MyNavbar({ setIsOpen, listNavBar }) {
     //Recargar la página
     window.location.reload();
   };
-  
-  const [imgUser, setImgUser] = useState("");
-  useEffect( () => {
-    // setImgUser(getImageUrl(1));
-    getImageUrl(2).then((url) => {
-      console.log(url);
-    });
+
+  const [imageSrc, setImageSrc] = useState("");
+  useEffect(() => {
+    const fetchImage = async () => {
+      try {
+        const id = JSON.parse(localStorage.getItem("user")).id;
+        const imageUrl = await getImageUrl("res.users", "avatar_128", id);
+        setImageSrc(imageUrl);
+      } catch (error) {
+        console.error("Error fetching image:", error);
+      }
+    };
+    fetchImage();
   }, []);
-  
+
   return (
-    <Navbar fluid rounded className="fixed w-full z-20 top-0 start-0 border-b"> 
+    <Navbar fluid rounded className="fixed w-full z-20 top-0 start-0 border-b">
       <Navbar.Brand
         onClick={() => setIsOpen(true)}
         onMouseMove={() => setIsOpen(true)}
@@ -53,16 +59,12 @@ export default function MyNavbar({ setIsOpen, listNavBar }) {
         <Dropdown
           arrowIcon={false}
           inline
-          label={
-            <Avatar
-              alt="User settings"
-              img={imgUser}
-              rounded
-            />
-          }
+          label={<Avatar alt="User settings" img={imageSrc} rounded />}
         >
           <Dropdown.Header>
-            <span className="block text-sm">{JSON.parse(localStorage.getItem("user"))?.name || "User Name"}</span>
+            <span className="block text-sm">
+              {JSON.parse(localStorage.getItem("user"))?.name || "User Name"}
+            </span>
             <span className="block truncate text-sm font-medium">
               {JSON.parse(localStorage.getItem("user"))?.email || "User Email"}
             </span>

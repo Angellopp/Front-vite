@@ -23,13 +23,12 @@ export default function useLogin() {
 
             if (data) {
                 localStorage.setItem("user", JSON.stringify({ 
-                    email: data.email,
-                    name: data.name,
                     companies: data.companies,
                     current_company: data.current_company,
+                    email: data.email,
                     id: data.id,
-                    url_odoo: data.url_odoo,
-                    session_id: data.session_id
+                    name: data.name,
+                    session_id: data.session_id,
                 }));
             } else {
                 throw new Error('Invalid token received');
