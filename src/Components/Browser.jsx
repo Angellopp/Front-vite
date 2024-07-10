@@ -2,12 +2,10 @@
 
 import TOP from "./TOP";
 import { Spinner, Button, TextInput } from "flowbite-react";
-
 import { HiSearch } from "react-icons/hi";
-
 import { useState } from "react";
+import PropTypes from "prop-types"; // Importa PropTypes
 
-// eslint-disable-next-line react/prop-types
 const Browser = ({ products, isFetching, refetch }) => {
   const [value, setValue] = useState("");
 
@@ -22,8 +20,6 @@ const Browser = ({ products, isFetching, refetch }) => {
             size={32}
             value={value}
             onChange={(e) => setValue(e.target.value)}
-            rows={1} // Número de filas del campo de texto
-            cols={100} // Número de columnas del campo de texto
           />
           <Button onClick={() => refetch()} disabled={isFetching}>
             {isFetching ? (
@@ -38,4 +34,9 @@ const Browser = ({ products, isFetching, refetch }) => {
   );
 };
 
+Browser.propTypes = {
+  products: PropTypes.array.isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  refetch: PropTypes.func.isRequired,
+};
 export default Browser;
