@@ -1,26 +1,22 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ImageUrl from "./image/ImageUrl";
-import DrawerCard from "./drawer_card/DrawerCard";
+// import DrawerCard from "./drawer_card/DrawerCard";
+import { ModalCard } from "./modal/ModalCard";
 import PaginationCard from "./utils/PaginationCard";
+import PropTypes from "prop-types"; // Importa PropTypes
+import { itemsPerPage, filterProducts } from "./constants"; 
 
 const TOP = ({ products, value }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [dataToCard, setDataToCard] = useState({ id: 1, name: "" });
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 8; // Puedes ajustar la cantidad de elementos por página
+  // const itemsPerPage = 8; // Puedes ajustar la cantidad de elementos por página
 
   const handleClose = () => setIsOpen(false);
   useEffect(() => {
     setCurrentPage(1);
   }, [value])
-  const datos = products;
-  const filasFiltradas = datos
-    ? value
-      ? datos.filter((item) =>
-          item.name.toLowerCase().includes(value.toLowerCase())
-        )
-      : datos
-    : [];
+  const filasFiltradas = filterProducts(products, value);
 
   // Calcular los elementos a mostrar en la página actual
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -43,7 +39,7 @@ const TOP = ({ products, value }) => {
                 <a onClick={() => { setIsOpen(true); setDataToCard(item); }}>
                   <ImageUrl
                     model="product.product"
-                    field="image_128"
+                    field="image_256"
                     id={item.id}
                     alt={item.name}
                   />
@@ -52,7 +48,7 @@ const TOP = ({ products, value }) => {
               <div className="px-5 pb-5">
                 <a className="items-center" href="#">
                   <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
-                    {item.name}
+                    [{item.default_code}] {item.name}
                   </h5>
                 </a>
                 <div className="flex items-center justify-between">
@@ -75,9 +71,15 @@ const TOP = ({ products, value }) => {
         totalPages={totalPages}
         onPageChange={setCurrentPage}
       />
-      <DrawerCard isOpen={isOpen} handleClose={handleClose} dataToCard={dataToCard}/>
+      {/* <DrawerCard isOpen={isOpen} handleClose={handleClose} dataToCard={dataToCard}/> */}
+      <ModalCard isOpen={isOpen} handleClose={handleClose} dataToCard={dataToCard}/>
     </>
   );
 };
 
-export default React.memo(TOP);
+TOP.propTypes = {
+  products: PropTypes.array,
+  value: PropTypes.string,
+};
+
+export default TOP;

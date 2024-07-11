@@ -3,12 +3,14 @@
 import { Drawer, Sidebar, TextInput } from "flowbite-react";
 import { useNavigate, Outlet } from "react-router-dom";
 import { useState } from "react";
-import { HiChartPie, HiSearch, HiShoppingBag, HiUsers } from "react-icons/hi";
+import { HiChartPie, HiSearch, HiShoppingBag, HiUsers, HiAdjustments } from "react-icons/hi";
 import MyNavbar from "./MyNavbar";
 import { useLocation } from "react-router-dom";
+import { ModalConfig } from "../modal/ModalConfig";
 
 export default function MySidebar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenConfig, setIsOpenConfig] = useState(false);
 
   const handleClose = () => setIsOpen(false);
   const navigate = useNavigate();
@@ -100,11 +102,18 @@ export default function MySidebar() {
                     </Sidebar.Item>
                   </Sidebar.ItemGroup> */}
                 </Sidebar.Items>
+                <Sidebar.ItemGroup>
+                    <Sidebar.Item icon={ HiAdjustments } onClick={() => setIsOpenConfig(true)}>
+                      Ajustes
+                    </Sidebar.Item>
+                </Sidebar.ItemGroup>
               </div>
             </div>
           </Sidebar>
         </Drawer.Items>
       </Drawer>
+
+      <ModalConfig isOpen={isOpenConfig} handleClose={() => setIsOpenConfig(false)} dataToCard={{}} />
 
       <Outlet />
     </>
