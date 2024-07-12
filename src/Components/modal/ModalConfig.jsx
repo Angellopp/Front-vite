@@ -58,11 +58,14 @@ export function ModalConfig({ isOpen, handleClose }) {
   };
 
   const handleSave = () => {
+    let available_companies_ids = visibleCompanies.slice();
+    available_companies_ids = [selectedCompany, ...available_companies_ids.filter((id) => id !== selectedCompany)];
+
     if (user) {
       const updatedUser = {
         ...user,
         current_company: selectedCompany,
-        available_companies_ids: visibleCompanies,
+        available_companies_ids: available_companies_ids,
       };
       localStorage.setItem("user", JSON.stringify(updatedUser));
     }
