@@ -20,6 +20,8 @@ export default function useLogin() {
                 throw new Error('Network response was not ok');
             }
             const data = await response.json();
+            const available_companies = data?.companies ? Object.values(data.companies) : []
+            const available_companies_ids = available_companies.map(company => company.id)
 
             if (data) {
                 localStorage.setItem("user", JSON.stringify({ 
@@ -29,6 +31,7 @@ export default function useLogin() {
                     id: data.id,
                     name: data.name,
                     session_id: data.session_id,
+                    available_companies_ids
                 }));
             } else {
                 throw new Error('Invalid token received');

@@ -16,6 +16,8 @@ import getImageUrl from "../../api/getImageUrl";
 
 export default function MyNavbar({ setIsOpen, listNavBar }) {
   const uselogout = useLogout();
+  const idCurrentCompany = JSON.parse(localStorage.getItem("user")).current_company;
+  const nameCompany = JSON.parse(localStorage.getItem("user")).companies[idCurrentCompany].name;
   const logout = () => {
     uselogout();
     //Recargar la página
@@ -49,7 +51,7 @@ export default function MyNavbar({ setIsOpen, listNavBar }) {
           <div className="flex items-center">
             {/* <img src="/favicon.svg" className="mr-3 h-6 sm:h-9" alt="Flowbite React Logo" /> */}
             <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
-              DATACOPIER CORP
+              {nameCompany || "DATACOPIER CORP"} 
             </span>
           </div>
         </Button>
