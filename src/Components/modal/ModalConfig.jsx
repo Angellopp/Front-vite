@@ -69,7 +69,8 @@ export function ModalConfig({ isOpen, handleClose }) {
       };
       localStorage.setItem("user", JSON.stringify(updatedUser));
     }
-    handleClose();
+    //Actualizar toda la pagina
+    window.location.reload();
   };
 
   return (
