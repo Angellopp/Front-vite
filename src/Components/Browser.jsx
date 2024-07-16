@@ -5,20 +5,24 @@ import { Spinner, Button, TextInput, Select } from "flowbite-react";
 import { HiSearch } from "react-icons/hi";
 import { useState , useEffect } from "react";
 import PropTypes from "prop-types"; // Importa PropTypes
+import useStockLocation from "../hooks/stockLocations/useStockLocation";
 
 const Browser = ({ products, isFetching, refetch }) => {
   const [value, setValue] = useState("");
   const [location, setLocation] = useState(0);
   const [locations, setLocations] = useState([]);
+  const userData = localStorage.getItem("user");
+  const parsedUser = JSON.parse(userData);
+  const availableCompaniesIds = parsedUser.available_companies_ids
 
-  // useEffect(() => {
-  //   const fetchLocations = async () => {
-  //     const response = await fetch("/api/locations");
-  //     const data = await response.json();
-  //     setLocations(data);
-  //   };
-  //   fetchLocations();
-  // }, []);
+  const { data: stockLocations } = useStockLocation( "stock.location", "search_read",[[["active", "=", true],["usage","=","internal"]], ["complete_name","location_id","company_id","display_name"], 0, [], "id asc"] );
+
+  useEffect(() => {
+    if (stockLocations) {
+      setLocations(stockLocations);
+      console.log(stockLocations);
+    }
+  }, [stockLocations]);
 
   return (
     <div className="mx-auto">
@@ -42,8 +46,9 @@ const Browser = ({ products, isFetching, refetch }) => {
           <Select id="location_id" className="ml-2" label="Location" onChange={(e) => setLocation(e.target.value)}>
             <option value="0">Selecciona un Lugar</option>
             {locations && locations.map((location) => (
+              availableCompaniesIds.includes(location.company_id[0]) &&
               <option key={location.id} value={location.id}>
-                {location.name}
+                {location.display_name}
               </option>
             ))}
           </Select>
