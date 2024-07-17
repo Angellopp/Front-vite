@@ -29,9 +29,9 @@ export function ModalCard({ isOpen, handleClose, dataToCard }) {
             </List>
           </div>
         </Modal.Body>
-        <Modal.Footer>
+        <Modal.Footer className="flex justify-end">
           {/* <Button onClick={ handleClose}>I accept</Button> */}
-          <Button color="gray" onClick={ handleClose }  >
+          <Button color="red" onClick={ handleClose }  >
             Salir
           </Button>
         </Modal.Footer>
