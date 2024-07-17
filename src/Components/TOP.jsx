@@ -7,7 +7,7 @@ import PropTypes from "prop-types"; // Importa PropTypes
 import { itemsPerPage, filterProducts } from "./constants"; 
 import PopoverStock from "./popover/PopoverStock";
 
-const TOP = ({ products, value }) => {
+const TOP = ({ products, value, locationId }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [dataToCard, setDataToCard] = useState({ id: 1, name: "" });
   const [currentPage, setCurrentPage] = useState(1);
@@ -56,7 +56,7 @@ const TOP = ({ products, value }) => {
                   <span className="text-3xl font-bold text-gray-900 dark:text-white">
                     {"S/. " + item.lst_price}
                   </span>
-                  <PopoverStock dataToPopover={item}/>
+                    <PopoverStock dataToPopover={item} locationId={locationId}/>
                 </div>
               </div>
             </div>
@@ -76,6 +76,7 @@ const TOP = ({ products, value }) => {
 TOP.propTypes = {
   products: PropTypes.array,
   value: PropTypes.string,
+  locationId: PropTypes.number
 };
 
 export default TOP;

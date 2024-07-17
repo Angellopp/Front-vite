@@ -3,13 +3,13 @@ import { Button, Popover } from "flowbite-react";
 import PropTypes from "prop-types";
 import useProductStock from "../../hooks/products/useProductStock";
 
-export default function PopoverStock({ dataToPopover }) {
+export default function PopoverStock({ dataToPopover, locationId }) {
     // Obtener los datos del usuario desde localStorage
     const userData = JSON.parse(localStorage.getItem("user"));
     const parsedCompaniesIds = userData && userData.available_companies_ids ? userData.available_companies_ids : [];
-    const { data: productStock, isLoading, isError } = useProductStock(dataToPopover.id, parsedCompaniesIds || []);
+    const { data: productStock, isLoading, isError } = useProductStock(dataToPopover.id, parsedCompaniesIds, locationId !== 0 ? locationId : 0 || []);
 
-    const ContentPopover = ( company_id, warehouse_id ) => {
+    const ContentPopover = ( company_id, warehouse_id) => {
         return (
             <div className="w-64 text-sm text-gray-500 dark:text-gray-400">
                 <div className="border-b border-gray-200 bg-gray-100 px-3 py-2 dark:border-gray-600 dark:bg-gray-700">
@@ -38,6 +38,12 @@ export default function PopoverStock({ dataToPopover }) {
     // Manejar errores en la obtención de stock
     if (isError) {
         return <div>Error fetching stock information</div>;
+    }
+
+    if(locationId!=0){
+        return (
+            <Button>{productStock && productStock.result && productStock.result.length > 0 ? productStock.result[0].quantity : 0}</Button>
+        );
     }
 
     // Mostrar popover con la información de stock obtenida
@@ -77,6 +83,7 @@ export default function PopoverStock({ dataToPopover }) {
 }
 
 PopoverStock.propTypes = {
-    dataToPopover: PropTypes.object.isRequired
+    dataToPopover: PropTypes.object.isRequired,
+    locationId: PropTypes.number
 };
 

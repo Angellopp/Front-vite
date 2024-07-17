@@ -9,7 +9,7 @@ import useStockLocation from "../hooks/stockLocations/useStockLocation";
 
 const Browser = ({ products, isFetching, refetch }) => {
   const [value, setValue] = useState("");
-  const [location, setLocation] = useState(0);
+  const [locationId, setLocationId] = useState(0);
   const [locations, setLocations] = useState([]);
   const userData = localStorage.getItem("user");
   const parsedUser = JSON.parse(userData);
@@ -20,7 +20,6 @@ const Browser = ({ products, isFetching, refetch }) => {
   useEffect(() => {
     if (stockLocations) {
       setLocations(stockLocations);
-      console.log(stockLocations);
     }
   }, [stockLocations]);
 
@@ -43,8 +42,8 @@ const Browser = ({ products, isFetching, refetch }) => {
               <div>Recargar</div>
             )}
           </Button>
-          <Select id="location_id" className="ml-2" label="Location" onChange={(e) => setLocation(e.target.value)}>
-            <option value="0">Selecciona un Lugar</option>
+          <Select id="location_id" className="ml-2" label="Location" onChange={(e) => setLocationId(e.target.value)}>
+            <option value="0">Todas las ubicaciones</option>
             {locations && locations.map((location) => (
               availableCompaniesIds.includes(location.company_id[0]) &&
               <option key={location.id} value={location.id}>
@@ -53,7 +52,7 @@ const Browser = ({ products, isFetching, refetch }) => {
             ))}
           </Select>
       </div>
-      <TOP value={value} products={products} />
+      <TOP value={value} products={products} locationId={locationId}/>
     </div>
   );
 };
