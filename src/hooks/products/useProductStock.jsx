@@ -10,11 +10,9 @@ export default function useProductStock(product_id, companies_ids, locationId) {
 
             // Mover el registro con location_id "PRCIX/Stock" al inicio de la lista
             const targetIndex = results.findIndex(record => record.location_id[0] === idLocation);
-            if(idLocation !== 0) {
-                if (targetIndex !== -1) {
-                    const [targetRecord] = results.splice(targetIndex, 1);
-                    results.unshift(targetRecord);
-                }
+            if (targetIndex !== -1) {
+                const [targetRecord] = results.splice(targetIndex, 1);
+                results.unshift(targetRecord);
             }
             return {
                 ...response,

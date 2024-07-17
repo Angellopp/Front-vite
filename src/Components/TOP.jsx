@@ -29,7 +29,7 @@ const TOP = ({ products, value, locationId }) => {
 
   return (
     <>
-      <div className="grid gap-12 p-20 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 overflow-x-auto shadow-md sm:rounded-lg">
+      <div className="grid gap-12 p-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 overflow-x-auto shadow-md sm:rounded-lg">
         {currentItems &&
           currentItems.map((item) => (
             <div
@@ -56,7 +56,7 @@ const TOP = ({ products, value, locationId }) => {
                   <span className="text-3xl font-bold text-gray-900 dark:text-white">
                     {"S/. " + item.lst_price}
                   </span>
-                    <PopoverStock dataToPopover={item} locationId={locationId}/>
+                  <PopoverStock dataToPopover={item} locationId={parseInt(locationId)}/>
                 </div>
               </div>
             </div>

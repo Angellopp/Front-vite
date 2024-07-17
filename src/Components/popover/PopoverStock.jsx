@@ -7,8 +7,8 @@ export default function PopoverStock({ dataToPopover, locationId }) {
     // Obtener los datos del usuario desde localStorage
     const userData = JSON.parse(localStorage.getItem("user"));
     const parsedCompaniesIds = userData && userData.available_companies_ids ? userData.available_companies_ids : [];
-    const { data: productStock, isLoading, isError } = useProductStock(dataToPopover.id, parsedCompaniesIds, locationId !== 0 ? locationId : 0 || []);
-
+    const { data: productStock, isLoading, isError, refetch: refetchProductStock } = useProductStock(dataToPopover.id, parsedCompaniesIds, locationId !== 0 ? locationId : 0 || []);
+    
     const ContentPopover = ( company_id, warehouse_id) => {
         return (
             <div className="w-64 text-sm text-gray-500 dark:text-gray-400">
@@ -28,8 +28,6 @@ export default function PopoverStock({ dataToPopover, locationId }) {
         );
     }
 
-    // Llamar a useProductStock para obtener información de stock
-
     // Mostrar estado de carga
     if (isLoading) {
         return <div>Loading...</div>;
@@ -40,9 +38,12 @@ export default function PopoverStock({ dataToPopover, locationId }) {
         return <div>Error fetching stock information</div>;
     }
 
-    if(locationId!=0){
+    if(locationId!==0){
+        let quantity_in_Location = 0
+        quantity_in_Location = productStock.result && productStock.result.length > 0 ? productStock.result.map((stock) => stock.location_id[0] === locationId ? stock.quantity : 0) : 0;
+        quantity_in_Location = Array.isArray(quantity_in_Location) ? quantity_in_Location.find((quantity) => quantity > 0) : 0
         return (
-            <Button>{productStock && productStock.result && productStock.result.length > 0 ? productStock.result[0].quantity : 0}</Button>
+            <Button>{quantity_in_Location || 0} Units</Button>
         );
     }
 
@@ -77,7 +78,7 @@ export default function PopoverStock({ dataToPopover, locationId }) {
                 </div>
             }
         >
-            <Button>Ver Stock</Button>
+            <Button onMouseEnter={() => refetchProductStock()}>Ver Stock</Button>
         </Popover>
     );
 }

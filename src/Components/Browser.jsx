@@ -42,6 +42,8 @@ const Browser = ({ products, isFetching, refetch }) => {
               <div>Recargar</div>
             )}
           </Button>
+      </div>
+      <div className="flex justify-center mt-3" >
           <Select id="location_id" className="ml-2" label="Location" onChange={(e) => setLocationId(e.target.value)}>
             <option value="0">Todas las ubicaciones</option>
             {locations && locations.map((location) => (
@@ -52,7 +54,7 @@ const Browser = ({ products, isFetching, refetch }) => {
             ))}
           </Select>
       </div>
-      <TOP value={value} products={products} locationId={locationId}/>
+      <TOP value={value} products={products} locationId={parseInt(locationId)}/>
     </div>
   );
 };
