@@ -11,8 +11,8 @@ export default function PaginationCard({ currentPage, totalPages, onPageChange }
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={onPageChange}
-        previousLabel="Go back"
-        nextLabel="Go forward"
+        previousLabel="Anterior"
+        nextLabel="Siguiente"
         showIcons
       />
     </div>
