@@ -2,7 +2,7 @@
 
 import TOP from "./TOP";
 import { Spinner, Button, TextInput, Select } from "flowbite-react";
-import { HiSearch } from "react-icons/hi";
+import { HiSearch, HiViewGrid, HiTable } from "react-icons/hi";
 import { useState , useEffect } from "react";
 import PropTypes from "prop-types"; // Importa PropTypes
 import useStockLocation from "../hooks/stockLocations/useStockLocation";
@@ -14,6 +14,7 @@ const Browser = ({ products, isFetching, refetch }) => {
   const userData = localStorage.getItem("user");
   const parsedUser = JSON.parse(userData);
   const availableCompaniesIds = parsedUser.available_companies_ids
+  const [tipeOfView, setTipeOfView] = useState("grid");
 
   const { data: stockLocations } = useStockLocation( "stock.location", "search_read",[[["active", "=", true],["usage","=","internal"]], ["complete_name","location_id","company_id","display_name"], 0, [], "id asc"] );
 
@@ -53,8 +54,12 @@ const Browser = ({ products, isFetching, refetch }) => {
               </option>
             ))}
           </Select>
+          <Button.Group outline>
+            <Button color={tipeOfView === "table" ? "info" : "gray"} onClick={() => setTipeOfView("table")}><HiTable/></Button>
+            <Button color={tipeOfView === "grid" ? "info" : "gray"} onClick={() => setTipeOfView("grid")}><HiViewGrid /></Button>
+          </Button.Group>
       </div>
-      <TOP value={value} products={products} locationId={parseInt(locationId)}/>
+      <TOP value={value} products={products} locationId={parseInt(locationId)} typeOfView={tipeOfView}/>
     </div>
   );
 };

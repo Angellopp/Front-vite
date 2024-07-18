@@ -6,8 +6,9 @@ import PaginationCard from "./utils/PaginationCard";
 import PropTypes from "prop-types"; // Importa PropTypes
 import { itemsPerPage, filterProducts } from "./constants"; 
 import PopoverStock from "./popover/PopoverStock";
+import ProductTable from "./table/ProductTable";
 
-const TOP = ({ products, value, locationId }) => {
+const TOP = ({ products, value, locationId, typeOfView }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [dataToCard, setDataToCard] = useState({ id: 1, name: "" });
   const [currentPage, setCurrentPage] = useState(1);
@@ -26,9 +27,9 @@ const TOP = ({ products, value, locationId }) => {
 
   // Total de páginas
   const totalPages = Math.ceil(filasFiltradas.length / itemsPerPage);
-
   return (
     <>
+      {typeOfView === "grid" &&
       <div className="grid gap-12 p-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 overflow-x-auto shadow-md sm:rounded-lg">
         {currentItems &&
           currentItems.map((item) => (
@@ -62,6 +63,9 @@ const TOP = ({ products, value, locationId }) => {
             </div>
           ))}
       </div>
+
+      }
+      {typeOfView === "table" && <ProductTable currentItems={currentItems} locationId={locationId} />}
       <PaginationCard
         currentPage={currentPage}
         totalPages={totalPages}
@@ -76,7 +80,8 @@ const TOP = ({ products, value, locationId }) => {
 TOP.propTypes = {
   products: PropTypes.array,
   value: PropTypes.string,
-  locationId: PropTypes.number
+  locationId: PropTypes.number,
+  typeOfView: PropTypes.string
 };
 
 export default TOP;
