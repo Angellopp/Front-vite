@@ -7,9 +7,9 @@ import PopoverStock from "../popover/PopoverStock";
 import ImageUrl from "../image/ImageUrl";
 // import { useState, useEffect } from "react";
 
-export default function ProductTable({ currentItems, locationId }) {
+export default function ProductTable({ currentItems, locationId, openModal, setDataToCard }) {
   return (
-    <div className="overflow-x-auto">
+    <div className="overflow-x-auto p-5">
       <Table hoverable>
         <Table.Head>
           <Table.HeadCell className="p-4">
@@ -45,7 +45,7 @@ export default function ProductTable({ currentItems, locationId }) {
                   />
                 </Table.Cell>
                 <Table.Cell>{item.lst_price}</Table.Cell>
-                <Table.Cell>
+                <Table.Cell onClick={() => { openModal(true); setDataToCard(item); }}>
                     {/* Imagen de 3em x 3em */}
                     <div className="w-20 h-20">
                   <ImageUrl
@@ -56,11 +56,8 @@ export default function ProductTable({ currentItems, locationId }) {
                   />
                 </div>
                 </Table.Cell>
-                <Table.Cell>
-                  <a
-                    href="#"
-                    className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"
-                  >
+                <Table.Cell onClick={() => { openModal(true); setDataToCard(item); }}>
+                  <a className="font-medium text-cyan-600 hover:underline dark:text-cyan-500" >
                     Ver <HiEye />
                   </a>
                 </Table.Cell>
@@ -75,4 +72,6 @@ export default function ProductTable({ currentItems, locationId }) {
 ProductTable.propTypes = {
   currentItems: PropTypes.array,
   locationId: PropTypes.number,
+  openModal: PropTypes.func,
+  setDataToCard: PropTypes.func
 };

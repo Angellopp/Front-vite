@@ -65,7 +65,7 @@ const TOP = ({ products, value, locationId, typeOfView }) => {
       </div>
 
       }
-      {typeOfView === "table" && <ProductTable currentItems={currentItems} locationId={locationId} />}
+      {typeOfView === "table" && <ProductTable currentItems={currentItems} locationId={locationId} openModal={setIsOpen} setDataToCard={setDataToCard} />}
       <PaginationCard
         currentPage={currentPage}
         totalPages={totalPages}
