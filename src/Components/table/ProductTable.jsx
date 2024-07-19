@@ -17,7 +17,7 @@ export default function ProductTable({ currentItems, locationId, openModal, setD
           </Table.HeadCell>
           <Table.HeadCell>Nombre</Table.HeadCell>
           <Table.HeadCell>Stock</Table.HeadCell>
-          <Table.HeadCell>Price</Table.HeadCell>
+          <Table.HeadCell>Precio</Table.HeadCell>
           <Table.HeadCell>Imagen</Table.HeadCell>
           <Table.HeadCell>
             <span className="sr-only">
@@ -44,7 +44,7 @@ export default function ProductTable({ currentItems, locationId, openModal, setD
                     locationId={parseInt(locationId)}
                   />
                 </Table.Cell>
-                <Table.Cell>{item.lst_price}</Table.Cell>
+                <Table.Cell>S/. {item.lst_price}</Table.Cell>
                 <Table.Cell onClick={() => { openModal(true); setDataToCard(item); }}>
                     {/* Imagen de 3em x 3em */}
                     <div className="w-20 h-20">
