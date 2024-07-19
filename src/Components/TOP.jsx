@@ -72,7 +72,7 @@ const TOP = ({ products, value, locationId, typeOfView }) => {
         onPageChange={setCurrentPage}
       />
       {/* <DrawerCard isOpen={isOpen} handleClose={handleClose} dataToCard={dataToCard}/> */}
-      <ModalCard isOpen={isOpen} handleClose={handleClose} dataToCard={dataToCard}/>
+      <ModalCard isOpen={isOpen} handleClose={handleClose} dataToCard={dataToCard} locationId={locationId}/>
     </>
   );
 };

@@ -8,10 +8,10 @@ import ImageUrl from "../image/ImageUrl";
 import useProductStock from "../../hooks/products/useProductStock";
 import Loading from "../indicators/Loading";
 
-export function ModalCard({ isOpen, handleClose, dataToCard }) {
+export function ModalCard({ isOpen, handleClose, dataToCard, locationId }) {
   const userData = JSON.parse(localStorage.getItem("user"));
   const parsedCompaniesIds = userData && userData.available_companies_ids ? userData.available_companies_ids : [];
-  const { data: productStock, isLoading, isError} = useProductStock(dataToCard.id, parsedCompaniesIds, 0);
+  const { data: productStock, isLoading, isError} = useProductStock(dataToCard.id, parsedCompaniesIds, locationId !== 0 ? locationId : 0 || []);
   const ContentPopover = ( company_id, warehouse_id) => {
     return (
         <div className="w-64 text-sm text-gray-500 dark:text-gray-400">
@@ -24,7 +24,7 @@ export function ModalCard({ isOpen, handleClose, dataToCard }) {
 
   return (
     <>
-      <Modal show={isOpen} onClose={handleClose} size="7xl" className="">
+      <Modal show={isOpen} onClose={handleClose} size="7xl" className="" >
         <Modal.Header>[{dataToCard?.default_code}] {dataToCard?.name}</Modal.Header>
         <Modal.Body className="grid sm:grid-cols-2 md:grid-cols-3 overflow-x-auto shadow-md sm:rounded-lg">
           <ImageUrl
@@ -60,7 +60,11 @@ export function ModalCard({ isOpen, handleClose, dataToCard }) {
         </Modal.Body>
         <Modal.Footer className="flex justify-end">
           {/* <Button onClick={ handleClose}>I accept</Button> */}
-          <Button color="red" onClick={ handleClose }  >
+          <Button color="red" onClick={ handleClose } onKeyUp={(ev) => {
+              if (ev.key === "Enter") {
+                handleClose();
+              }
+            }}>
             Salir
           </Button>
         </Modal.Footer>
@@ -73,4 +77,5 @@ ModalCard.propTypes = {
   isOpen: PropTypes.bool,
   handleClose: PropTypes.func,
   dataToCard: PropTypes.object,
+  locationId: PropTypes.number
 };

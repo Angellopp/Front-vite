@@ -76,7 +76,7 @@ const Browser = ({ products, isFetching, refetch }) => {
                 )
             )}
         </Select>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2 pl-2">
           <Button.Group>
             <Button
               color={typeOfView === "table" ? "info" : "gray"}
