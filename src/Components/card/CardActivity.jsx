@@ -29,12 +29,14 @@ export default function CardsActivity() {
                 <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                   {email.res_name}
                 </h5>
+                <h6 className="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+                  {email.activity_type_id[1]}
+                </h6>
                 <p className="font-normal text-gray-700 dark:text-gray-400">
                   {email.note}
                 </p>
                 <p className="font-normal text-gray-700 dark:text-gray-400">
                   {email.display_name}
-                  {email.activity_type_id[1]}
                 </p>
                 <Toast className="bg-red-100 dark:bg-red-900">
                   <BiCalendarExclamation className="h-5 w-5 text-cyan-600 dark:text-cyan-500" />
