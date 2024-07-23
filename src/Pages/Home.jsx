@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import useVerifyToken from "../hooks/auth/useVerifyToken";
 import useLogout from "../hooks/auth/useLogout";
 import MySidebar from "../Components/navbar/MySidebar";
-import CardsActivity from "../Components/card/CardActivity";
+import CardsActivity from "../Components/card/CardsActivity";
 
 function Home() {
     const logout = useLogout();
