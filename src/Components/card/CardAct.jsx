@@ -41,7 +41,7 @@ export default function CardAct({ email }) {
       <Toast className={`bg-${color}-100 dark:bg-${color}-900`}>
         <BiCalendarExclamation className="h-5 w-5 text-cyan-600 dark:text-cyan-500" />
         <div className="pl-4 text-sm font-normal">
-          {status+dateFormat}
+          {status + dateFormat}
         </div>
       </Toast>
     </Card>
