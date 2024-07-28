@@ -3,28 +3,43 @@ import Fuse from 'fuse.js';
 export const itemsPerPage = 8;
 
 // Utility function (if needed)
-export const filterProducts = (products, value) => {
-  const opciones = {
+export const filterProducts = (products, model, value) => {
+  console.log(model, value);
+  const opcionesNombre = {
+    keys: [
+      'name', 
+    ],
+    includeScore: true,
+    threshold: 0.3
+  };
+  const opcionesModel = {
     keys: [
       'busqueda', 
     ],
     includeScore: true,
-    threshold: 0.6
+    threshold: 0.3
   };
   const products_busqueda = products.map(result => {
-    result.busqueda = result.default_code + ' ' + result.name + ' ' +  result.description_sale;
+    result.busqueda = result.description_sale;
     return result;
   });
-  const fuse = new Fuse(products_busqueda, opciones);
-  // console.log(products_busqueda);
-  // const resultado1 = fuse.search(value);
-  const result = fuse.search(value).map(result => result.item);
-  // console.log(result);
-  // console.log(products);
-  // console.log(typeof resultado1);
+  const filtradoNombre = new Fuse(products_busqueda, opcionesNombre);
+  const filtradoModel = new Fuse(products_busqueda, opcionesModel);
+  
+  const resultNombre = filtradoNombre.search(value).map(result => result.item);
+  const resultModel = filtradoModel.search(model).map(result => result.item);
+
+  const result = resultNombre.filter(nombreItem =>
+    resultModel.some(modelItem => modelItem.id === nombreItem.id)
+  );
+  console.log(result);
   return products
     ? value
-      ? result
-      : products
+      ? model
+        ? result
+        : resultNombre
+      : model
+        ? resultModel
+        : products
     : [];
 };

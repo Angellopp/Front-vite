@@ -9,6 +9,7 @@ import useStockLocation from "../hooks/stockLocations/useStockLocation";
 
 const Browser = ({ products, isFetching, refetch }) => {
   const [value, setValue] = useState("");
+  const [model, setModel] = useState("");
   const [locationId, setLocationId] = useState(0);
   const [locations, setLocations] = useState([]);
   const [typeOfView, setTypeOfView] = useState("grid");
@@ -37,20 +38,28 @@ const Browser = ({ products, isFetching, refetch }) => {
       setLocations(stockLocations);
     }
   }, [stockLocations]);
-
   return (
     <div className="mx-auto">
-      <div className="flex justify-center mt-3">
-        <TextInput
+      <div className="flex justify-center mt-3 mb-4">
+        <TextInput className="mx-2"
           icon={HiSearch}
           type="search"
-          placeholder="Search"
+          placeholder="Buscar nombre"
           required
           size={32}
           value={value}
           onChange={(e) => setValue(e.target.value)}
         />
-        <Button onClick={refetch} disabled={isFetching}>
+        <TextInput className="mx-2"
+          icon={HiSearch}
+          type="search"
+          placeholder="Buscar modelo"
+          required
+          size={15}
+          value={model}
+          onChange={(e) => setModel(e.target.value)}
+        />
+        <Button onClick={refetch} disabled={isFetching} className="mx-2">
           {isFetching ? (
             <Spinner color="success" aria-label="Success spinner example" />
           ) : (
@@ -58,10 +67,10 @@ const Browser = ({ products, isFetching, refetch }) => {
           )}
         </Button>
       </div>
-      <div className="flex justify-center mt-3">
+      <div className="flex justify-center mt-3 mb-4">
         <Select
           id="location_id"
-          className="ml-2"
+          className="mx-2"
           label="Location"
           onChange={(e) => setLocationId(e.target.value)}
         >
@@ -95,6 +104,7 @@ const Browser = ({ products, isFetching, refetch }) => {
       </div>
       <TOP
         value={value}
+        model={model}
         products={products}
         locationId={parseInt(locationId)}
         typeOfView={typeOfView}

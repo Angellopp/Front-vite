@@ -8,7 +8,7 @@ import { itemsPerPage, filterProducts } from "./constants";
 import PopoverStock from "./popover/PopoverStock";
 import ProductTable from "./table/ProductTable";
 
-const TOP = ({ products, value, locationId, typeOfView }) => {
+const TOP = ({ products, value, model, locationId, typeOfView }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [dataToCard, setDataToCard] = useState({ id: 1, name: "" });
   const [currentPage, setCurrentPage] = useState(1);
@@ -17,8 +17,8 @@ const TOP = ({ products, value, locationId, typeOfView }) => {
   const handleClose = () => setIsOpen(false);
   useEffect(() => {
     setCurrentPage(1);
-  }, [value])
-  const filasFiltradas = filterProducts(products, value);
+  }, [value, model])
+  const filasFiltradas = filterProducts(products, model, value);
 
   // Calcular los elementos a mostrar en la página actual
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -81,7 +81,8 @@ TOP.propTypes = {
   products: PropTypes.array,
   value: PropTypes.string,
   locationId: PropTypes.number,
-  typeOfView: PropTypes.string
+  typeOfView: PropTypes.string,
+  model: PropTypes.string
 };
 
 export default TOP;
