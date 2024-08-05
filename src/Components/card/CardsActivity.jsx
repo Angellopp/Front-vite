@@ -5,9 +5,9 @@ import useActivityEmail from "../../hooks/activitiesEmail/useActivityEmail";
 import CardAct from "./CardAct";
 import Loading from "../indicators/Loading";
 export default function CardsActivity() {
-  // const user = JSON.parse(localStorage.getItem("user")) || {};
-  // const { data: activityEmails, isLoading: isLoadingActivities } = useActivityEmail("mail.activity","search_read",[[["user_id","=",user.id]], []]);
-  const { data: activityEmails, isLoading: isLoadingActivities } =
+  const user = JSON.parse(localStorage.getItem("user")) || {};
+  const { data: activityEmails, isLoading: isLoadingActivities } = useActivityEmail("mail.activity","search_read",[[["user_id","=",user.id]], []]);
+  // const { data: activityEmails, isLoading: isLoadingActivities } =
     useActivityEmail("mail.activity", "search_read", [[], []]);
   if (isLoadingActivities) {
     return (
