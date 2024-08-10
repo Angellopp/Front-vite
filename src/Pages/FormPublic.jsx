@@ -1,16 +1,19 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Button, Label, TextInput, Select, Card, Textarea } from 'flowbite-react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import InputFile from '../Components/input/InputFile';
+import NotFoundQR from './NotFoundQR';
+import { GoogleReCaptchaProvider, useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 
-function Form() {
+const FormPublic = () => {
+  const { id } = useParams();
   const [formData, setFormData] = useState({
     nombre_solicitante: '',
     mensaje_peticion: '',
     tipo_peticion: 'servicio_tecnico',
     image: null,
   });
-
+  const [validationQR, setValidationQR] = useState(true);
   const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
 
   const handleInputChange = (e) => {
@@ -34,10 +37,55 @@ function Form() {
     setFormData({ ...formData, image: null });
   };
 
-  const handleSubmit = (e) => {
+  if (!validationQR) {
+    return <NotFoundQR />;
+  }
+
+  return (
+    <GoogleReCaptchaProvider reCaptchaKey="6Lfi6SMqAAAAAGXg0pcXSv2MN-rQHzTHRxCtmEXr">
+      <RecaptchaForm 
+        formData={formData}
+        handleInputChange={handleInputChange}
+        handleFileChange={handleFileChange}
+        handleRemoveImage={handleRemoveImage}
+        imagePreviewUrl={imagePreviewUrl}
+        id={id}
+      />
+    </GoogleReCaptchaProvider>
+  );
+}
+
+// eslint-disable-next-line react/prop-types
+const RecaptchaForm = ({ formData, handleInputChange, handleFileChange, handleRemoveImage, imagePreviewUrl, id }) => {
+  const { executeRecaptcha } = useGoogleReCaptcha();
+
+  const handleSubmit = async (e) => {
+    const url = import.meta.env.VITE_URL_BACKEND
     e.preventDefault();
     console.log('Datos del formulario:', formData);
-    // lógica para enviar los datos al servidor
+
+    if (!executeRecaptcha) {
+      console.error("executeRecaptcha no está disponible");
+      return;
+    }
+
+    const token = await executeRecaptcha('submit_form');
+    console.log('Captcha Token:', token);
+    
+    const response = await fetch(url + '/verificar-captcha', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ token }),
+    });
+
+    const data = await response.json();
+    if (data.success) {
+      alert('Captcha validado exitosamente');
+    } else {
+      alert('Captcha inválido');
+    }
   };
 
   return (
@@ -57,7 +105,7 @@ function Form() {
             id="nombre"
             name="nombre_solicitante"
             type="text"
-            className='mt-2'
+            className="mt-2"
             required
             minLength={7}
             onChange={handleInputChange}
@@ -68,26 +116,26 @@ function Form() {
           <Label htmlFor="tipo_peticion" value="Peticion" />
           <Select
             id="tipo_peticion"
-            name='tipo_peticion'
-            className='mt-2'
+            name="tipo_peticion"
+            className="mt-2"
             required
             onChange={handleInputChange}
           >
-            <option value={'servicio_tecnico'}>Servicio Tecnico</option>
-            <option value={'cambio_toner'}>Cambio Toner</option>
-            <option value={'atasco'}>Atasco</option>
-            <option value={'otro'}>Otro</option>
+            <option value="servicio_tecnico">Servicio Técnico</option>
+            <option value="cambio_toner">Cambio Toner</option>
+            <option value="atasco">Atasco</option>
+            <option value="otro">Otro</option>
           </Select>
         </div>
 
         <div>
-          <Label htmlFor="comment" value="Mensaje"/>
+          <Label htmlFor="comment" value="Mensaje" />
           <Textarea
             id="comment"
             name="mensaje_peticion"
             placeholder="Escribe tu mensaje"
             type="text"
-            className='mt-2'
+            className="mt-2"
             required
             rows={4}
             onChange={handleInputChange}
@@ -96,7 +144,7 @@ function Form() {
 
         <div>
           <Label htmlFor="image" value="Foto (opcional)" />
-          <p className="font-medium text-gray-700 dark:text-gray-400 mb-2" >
+          <p className="font-medium text-gray-700 dark:text-gray-400 mb-2">
             {imagePreviewUrl ? formData.image.name : 'No se ha subido ninguna imagen:'}
           </p>
           {!imagePreviewUrl && (
@@ -128,12 +176,13 @@ function Form() {
           )}
         </div>
         <Button type="submit">Enviar</Button>
-        <Link to="/ruta-destino" className='mx-auto my-auto dark:text-white underline'>
+        <Link to="/ruta-destino" className="mx-auto my-auto dark:text-white underline">
           Registrar acción de Servicio Técnico (Solo para técnicos)
+          {console.log(id)}
         </Link>
       </form>
     </div>
   );
 }
 
-export default Form;
+export default FormPublic;

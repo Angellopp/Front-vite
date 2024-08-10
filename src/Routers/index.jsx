@@ -2,7 +2,8 @@ import { createBrowserRouter } from "react-router-dom";
 
 import Home from "../Pages/Home";
 import Login from "../Pages/Login";
-import Form from "../Pages/Form";
+import FormPublic from "../Pages/FormPublic";
+import FormTecnico from "../Pages/FormTecnico";
 import NotFound from "../Pages/NotFound";
 import { ProtectedRoute } from "../Components/utils/ProtectedRoute";
 import ProductsDashboard from "../Pages/ProductsDashboard";
@@ -10,6 +11,7 @@ import CustomersDashboard from "../Pages/CustomersDashboard";
 
 
 export const router = createBrowserRouter([
+    
     {
         path: "/",
         element: <Home />,
@@ -21,8 +23,8 @@ export const router = createBrowserRouter([
         errorElement: <NotFound />,
     },
     {
-        path: "/form",
-        element: <Form />,
+        path: "/form/:id",
+        element: <FormPublic/>,
         errorElement: <NotFound />,
     },
     {
@@ -41,6 +43,10 @@ export const router = createBrowserRouter([
             {
                 path: "/products",
                 element: <ProductsDashboard />,
+            },
+            {
+                path: "/form_tecnico",
+                element: <FormTecnico />,
             },
         ],
     },
