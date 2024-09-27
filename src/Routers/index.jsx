@@ -8,6 +8,7 @@ import NotFound from "../Pages/NotFound";
 import { ProtectedRoute } from "../Components/utils/ProtectedRoute";
 import ProductsDashboard from "../Pages/ProductsDashboard";
 import CustomersDashboard from "../Pages/CustomersDashboard";
+import SalesDashboard from "../Pages/SalesDashboard";
 
 
 export const router = createBrowserRouter([
@@ -47,6 +48,10 @@ export const router = createBrowserRouter([
             {
                 path: "/form_tecnico",
                 element: <FormTecnico />,
+            },
+            {
+                path: "/sales_dashboard",
+                element: <SalesDashboard />,
             },
         ],
     },
