@@ -23,7 +23,7 @@ export default function MySidebar() {
 
   return (
     <>
-      <MyNavbar setIsOpen={setIsOpen} listNavBar={[{ name: "Home", url: "/" }, { name: "Seguimiento personalizado", url: "/customers" }, { name: "Productos", url: "/products" }]} />
+      <MyNavbar setIsOpen={setIsOpen} listNavBar={[{ name: "Home", url: "/" }, { name: "Seguimiento personalizado", url: "/customers" }, { name: "Productos", url: "/products" }, { name: "Dashboard de ventas", url: "/sales_dashboard" }]} />
       <Drawer open={isOpen} onClose={handleClose}>
         <Drawer.Header title="MENU" titleIcon={() => <> </>} />
         <Drawer.Items>
